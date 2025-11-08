@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estore-frontend
+  labels:
+    app: estore
+    tier: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: estore
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: estore
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: <kingpin999>/estore-frontend:v1
+        ports:
+        - containerPort: 80
+        env:
+        - name: REACT_APP_BACKEND_URL
+          value: "http://estore-backend:8080"
